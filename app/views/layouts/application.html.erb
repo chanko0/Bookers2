@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://kit.fontawesome.com/fe0016bc2d.js" crossorigin="anonymous"></script>
+    <title>RailsNewBookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+   <header class="bg-dark text-white shadow-sm">
+   <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <sapn><%= link_to 'Bookers', root_path, class: 'text-white' %></sapn>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+      </button> 
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+         <% if user_signed_in? %>
+          <li class="nav-item fas fa-home text-white p-2">
+           <%= link_to 'Home', user_path(current_user.id), class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-users text-white p-2">
+           <%= link_to 'Users', users_path, class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-book-open text-white p-2">
+           <%= link_to 'Books', books_path, class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-sign-out-alt text-white p-2">
+           <%= link_to "logout", destroy_user_session_path, method: :delete, class: 'text-white' %>
+          </li>
+           <% else %>
+          <li class="nav-item fas fa-home text-white p-2 p-2">
+           <%= link_to 'Home', root_path, class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-link text-white p-2 p-2">
+           <%= link_to 'About', about_path, class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-user-plus text-white p-2">
+           <%= link_to "sign up", new_user_registration_path, class: 'text-white' %>
+          </li>
+          <li class="nav-item fas fa-sign-in-alt text-white p-2">
+           <%= link_to "login", new_user_session_path, class: 'text-white' %>
+          </li>
+         <% end %>
+        </ul>
+      </div>
+    </div>
+   </nav>
+  </header>
+   <% flash.each do |message_type, message| %>
+    <%= content_tag :div, message, class: message_type %>
+   <% end %>
+
+  <%= yield %>
+  <footer>
+    <p class="text-center">CopyRight Infratop.inc</p>
+  </footer>
+  </body>
+</html>
